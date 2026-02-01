@@ -1,16 +1,12 @@
 all: main
 
 CXX = clang++
-override CXXFLAGS += -g -Wall -Werror
+override CXXFLAGS += -g -Wall -O2
 
-SRCS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.cpp' -print | sed -e 's/ /\\ /g')
-HEADERS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.h' -print)
+SRCS = main.cpp
 
-main: $(SRCS) $(HEADERS)
-	$(CXX) $(CXXFLAGS) $(SRCS) -o "$@"
-
-main-debug: $(SRCS) $(HEADERS)
-	NIX_HARDENING_ENABLE= $(CXX) $(CXXFLAGS) -O0  $(SRCS) -o "$@"
+main: $(SRCS)
+	$(CXX) $(CXXFLAGS) $(SRCS) -o main
 
 clean:
-	rm -f main main-debug
+	rm -f main
